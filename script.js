@@ -15,11 +15,14 @@ function saveSettings() {
     reader.onload = function (event) {
         const backgroundImage = event.target.result;
         document.cookie = `backgroundImage=${encodeURIComponent(backgroundImage)};path=/;max-age=31536000`; // 1年
+        console.log(`保存される背景画像: ${backgroundImage}`);
         applyBackgroundImage(backgroundImage);
     };
 
     if (backgroundImageInput.files[0]) {
         reader.readAsDataURL(backgroundImageInput.files[0]);
+    } else {
+        console.error('背景画像が選択されていません');
     }
 
     document.cookie = `customText=${encodeURIComponent(customText)};path=/;max-age=31536000`; // 1年
@@ -36,10 +39,10 @@ function loadSettings() {
         const [name, value] = cookie.split('=');
         if (name === 'backgroundImage') {
             backgroundImage = decodeURIComponent(value);
-            console.log(`背景画像の設定を読み込みました: ${backgroundImage}`);
+            console.log(`読み込まれた背景画像: ${backgroundImage}`);
         } else if (name === 'customText') {
             customText = decodeURIComponent(value);
-            console.log(`カスタムテキストの設定を読み込みました: ${customText}`);
+            console.log(`読み込まれたカスタムテキスト: ${customText}`);
         }
     });
 
