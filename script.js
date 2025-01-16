@@ -12,12 +12,13 @@ function saveSettings() {
     const customText = document.getElementById('custom-text').value;
     const reader = new FileReader();
 
+    reader.onload = function (event) {
+        const backgroundImage = event.target.result;
+        document.cookie = `backgroundImage=${encodeURIComponent(backgroundImage)};path=/;max-age=31536000`; // 1年
+        applyBackgroundImage(backgroundImage);
+    };
+
     if (backgroundImageInput.files[0]) {
-        reader.onload = function (event) {
-            const backgroundImage = event.target.result;
-            document.cookie = `backgroundImage=${encodeURIComponent(backgroundImage)};path=/;max-age=31536000`; // 1年
-            applyBackgroundImage(backgroundImage);
-        };
         reader.readAsDataURL(backgroundImageInput.files[0]);
     }
 
@@ -27,21 +28,20 @@ function saveSettings() {
 }
 
 function loadSettings() {
-    const cookies = document.cookie.split(';');
+    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
     let backgroundImage = '';
     let customText = '';
 
     cookies.forEach(cookie => {
         const [name, value] = cookie.split('=');
-        if (name.trim() === 'backgroundImage') {
+        if (name === 'backgroundImage') {
             backgroundImage = decodeURIComponent(value);
-        } else if (name.trim() === 'customText') {
+        } else if (name === 'customText') {
             customText = decodeURIComponent(value);
         }
     });
 
     if (backgroundImage) {
-        console.log('背景画像のデータ:', backgroundImage); // デバッグ用に追加
         applyBackgroundImage(backgroundImage);
     }
 
@@ -52,8 +52,10 @@ function loadSettings() {
 }
 
 function applyBackgroundImage(image) {
-    document.querySelector('.background').style.backgroundImage = `url(${image})`;
-    console.log('背景画像が適用されました:', image); // デバッグ用に追加
+    const backgroundElement = document.querySelector('.background');
+    if (backgroundElement) {
+        backgroundElement.style.backgroundImage = `url(${image})`;
+    }
 }
 
 function exportSettings() {
