@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Page</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="content">
+        <button class="settings-button" onclick="toggleSettings()">設定</button>
+        <div class="custom-text">ここにカスタムテキストを入力...</div>
+    </div>
+    <div class="settings-panel">
+        <label for="background-image">背景画像:</label>
+        <input type="file" id="background-image" accept="image/*">
+        <label for="custom-text">カスタムテキスト:</label>
+        <textarea id="custom-text"></textarea>
+        <button onclick="saveSettings()">保存</button>
+        <button onclick="exportSettings()">エクスポート</button>
+        <input type="file" id="import-file" accept=".json" onchange="importSettings(event)">
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
