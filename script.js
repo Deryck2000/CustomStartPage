@@ -36,8 +36,10 @@ function loadSettings() {
         const [name, value] = cookie.split('=');
         if (name === 'backgroundImage') {
             backgroundImage = decodeURIComponent(value);
+            console.log(`背景画像の設定を読み込みました: ${backgroundImage}`);
         } else if (name === 'customText') {
             customText = decodeURIComponent(value);
+            console.log(`カスタムテキストの設定を読み込みました: ${customText}`);
         }
     });
 
