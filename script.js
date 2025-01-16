@@ -41,6 +41,7 @@ function loadSettings() {
     });
 
     if (backgroundImage) {
+        console.log('背景画像のデータ:', backgroundImage); // デバッグ用に追加
         applyBackgroundImage(backgroundImage);
     }
 
@@ -52,6 +53,7 @@ function loadSettings() {
 
 function applyBackgroundImage(image) {
     document.querySelector('.background').style.backgroundImage = `url(${image})`;
+    console.log('背景画像が適用されました:', image); // デバッグ用に追加
 }
 
 function exportSettings() {
