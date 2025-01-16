@@ -45,11 +45,15 @@ function loadSettings() {
 
     if (backgroundImage) {
         applyBackgroundImage(backgroundImage);
+    } else {
+        console.error('背景画像が読み込めませんでした');
     }
 
     if (customText) {
         document.querySelector('.custom-text').innerText = customText;
         document.getElementById('custom-text').value = customText;
+    } else {
+        console.error('カスタムテキストが読み込めませんでした');
     }
 }
 
@@ -57,6 +61,9 @@ function applyBackgroundImage(image) {
     const backgroundElement = document.querySelector('.background');
     if (backgroundElement) {
         backgroundElement.style.backgroundImage = `url(${image})`;
+        console.log(`背景画像を適用しました: ${image}`);
+    } else {
+        console.error('背景要素が見つかりませんでした');
     }
 }
 
